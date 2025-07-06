@@ -4,7 +4,7 @@ class FizzBuzz():
         self.end = end
 
     def play(self):
-        for i in range(self.start, self.end):
+        for i in range(self.start, self.end + 1):
             if i % 3 == 0 and i % 5 == 0:
                 print("FizzBuzz")
             elif i % 3 == 0:
