@@ -28,7 +28,7 @@ def get_rolls(game):
     for i, frame in enumerate(frames):
         if i < 9:
             if frame == 'X':
-                rolls.append(10)
+                rolls.append([10])
             else:
                 first, second = frame[0], frame[1]
                 if first == '-':
@@ -64,23 +64,45 @@ def get_rolls(game):
 
 def sum_score(rolls):
     score = 0
+    for i, roll in enumerate(rolls):
+        if i == 9:
+            score += sum(roll)
+            break
+        
+        if roll == [10]:
+            next_2_balls = []
+            next = i + 1
+            while len(next_2_balls) < 2 and next < 10:
+                next_2_balls.extend(rolls[next])
+                next = next + 1
+            score = score + (10 + sum(next_2_balls))
+        elif sum(roll) == 10:
+            next_ball = rolls[i+1][0]
+            score = score + 10 + next_ball
+        else:
+            score += sum(roll)
+    return score
 
 def main():
     game1 = "X   X   X   X   X   X   X   X   X   XXX"
     rolls1 = get_rolls(game1)
-    print("rolls1:", rolls1)
+    score1 = sum_score(rolls1)
+    print("rolls1:", rolls1, "score1:", score1)
 
     game2 = "1-  1-  1-  1-  1-  1-  1-  1-  1-  1-"
     rolls2 = get_rolls(game2)
-    print("rolls2:", rolls2)
+    score2 = sum_score(rolls2)
+    print("rolls2:", rolls2, "score2:", score2)
 
     game3 = "X   9/  5/  72  X   X   X   9-  8/  9/X"
     rolls3 = get_rolls(game3)
-    print("rolls3:", rolls3)
+    score3 = sum_score(rolls3)
+    print("rolls3:", rolls3, "score3:", score3)
     
     game4 = "5/  5/  5/  5/  5/  5/  5/  5/  5/  5/5"
     rolls4 = get_rolls(game4)
-    print("rolls4:", rolls4)
+    score4 = sum_score(rolls4)
+    print("rolls4:", rolls4, "score4:", score4)
 
 
 if __name__ == "__main__":
