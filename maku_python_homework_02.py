@@ -43,26 +43,30 @@ def get_rolls(game):
                 else:
                     roll_second = int(second)
 
-                rolls.extend([roll_first, roll_second])
+                rolls.append([roll_first, roll_second])
         else:
+            roll_last = []
             for roll in frame:
                 if roll.isdigit():
-                    rolls.append(int(roll))
+                    roll_last.append(int(roll))
                     already = int(roll)
                 elif roll == 'X':
-                    rolls.append(10)
+                    roll_last.append(10)
                     already = 10
                 elif roll == '-':
-                    rolls.append(0)
+                    roll_last.append(0)
                     already = 0
                 elif roll == '/':
-                    rolls.append(10 - already)
+                    roll_last.append(10 - already)
+            rolls.append(roll_last)
 
     return rolls
 
+def sum_score(rolls):
+    score = 0
 
 def main():
-    game1 = "X   X   X   X   X   X   X   X   X   X X X"
+    game1 = "X   X   X   X   X   X   X   X   X   XXX"
     rolls1 = get_rolls(game1)
     print("rolls1:", rolls1)
 
