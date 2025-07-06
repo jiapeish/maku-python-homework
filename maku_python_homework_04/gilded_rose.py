@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from re import S
+
+
 class GildedRose(object):
 
     def __init__(self, items):
@@ -107,6 +110,9 @@ class UpdateBackstage(UpdateBase):
             
             if self.item.sell_in <= 5:
                 self.item.quality += 1
+    
+    def update_sellin(self):
+        self.item.sell_in = self.item.sell_in - 1
 
     def update_quality_passed(self):
         self.item.quality = 0
@@ -116,8 +122,19 @@ class UpdateSulfuras(UpdateBase):
     def update_quality(self):
         self.item.quality = self.item.quality
 
+    def update_sellin(self):
+        self.item.sell_in = self.item.sell_in
+
     def update_quality_passed(self):
         self.item.quality = self.item.quality
+
+class UpdateConjured(UpdateBase):
+    def update_quality(self):
+        if self.item.quality > 0:
+            self.item.quality = self.item.quality - 2
+
+    def update_sellin(self):
+        self.item.sell_in = self.item.sell_in - 1
 
 
 class Item:
