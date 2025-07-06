@@ -51,6 +51,8 @@ def get_class_operator(item):
         return UpdateBackstage(item)
     elif item.name == "Sulfuras, Hand of Ragnaros":
         return UpdateSulfuras(item)
+    elif item.name == "Conjured Mana Cake":
+        return UpdateConjured(item)
     else:
         return UpdateEasy(item)
 
@@ -135,6 +137,10 @@ class UpdateConjured(UpdateBase):
 
     def update_sellin(self):
         self.item.sell_in = self.item.sell_in - 1
+
+    def update_quality_passed(self):
+        if self.item.quality > 0:
+            self.item.quality = self.item.quality - 2
 
 
 class Item:
