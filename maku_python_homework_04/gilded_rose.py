@@ -8,11 +8,13 @@ class GildedRose(object):
     def __init__(self, items):
         self.items = items
 
+    # 新增的方法
     def update_quality(self):
         for item in self.items:
             operator = get_class_operator(item)
             operator.update()
 
+    # 旧代码保留用于对比
     def update_quality_old(self):
         for item in self.items:
             if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
