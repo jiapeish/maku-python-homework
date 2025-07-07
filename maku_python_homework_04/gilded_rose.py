@@ -112,6 +112,10 @@ class UpdateBackstage(UpdateBase):
             
             if self.item.sell_in <= 5:
                 self.item.quality += 1
+        
+        if self.item.quality > 50:
+            self.item.quality = 50
+
     
     def update_sellin(self):
         self.item.sell_in = self.item.sell_in - 1
@@ -125,7 +129,7 @@ class UpdateSulfuras(UpdateBase):
         self.item.quality = self.item.quality
 
     def update_sellin(self):
-        self.item.sell_in = self.item.sell_in
+        self.item.sell_in = self.item.sell_in - 1
 
     def update_quality_passed(self):
         self.item.quality = self.item.quality
@@ -134,6 +138,9 @@ class UpdateConjured(UpdateBase):
     def update_quality(self):
         if self.item.quality > 0:
             self.item.quality = self.item.quality - 2
+        if self.item.quality < 0:
+            self.item.quality = 0
+        
 
     def update_sellin(self):
         self.item.sell_in = self.item.sell_in - 1
@@ -141,6 +148,8 @@ class UpdateConjured(UpdateBase):
     def update_quality_passed(self):
         if self.item.quality > 0:
             self.item.quality = self.item.quality - 2
+        if self.item.quality < 0:
+            self.item.quality = 0
 
 
 class Item:
