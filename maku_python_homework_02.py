@@ -72,9 +72,11 @@ def sum_score(rolls):
         if roll == [10]:
             next_2_balls = []
             next = i + 1
+            needed_balls = 2 - len(next_2_balls)
             while len(next_2_balls) < 2 and next < 10:
-                next_2_balls.extend(rolls[next])
+                next_2_balls.extend(rolls[next][:needed_balls])
                 next = next + 1
+            next_2_balls = next_2_balls[:2]
             score = score + (10 + sum(next_2_balls))
         elif sum(roll) == 10:
             next_ball = rolls[i+1][0]
